@@ -9,6 +9,7 @@ spec:
   path: ./flux
   prune: false
   serviceAccountName: facebooc
+  targetNamespace: facebooc
   sourceRef:
     kind: GitRepository
     name: facebooc-deploy
