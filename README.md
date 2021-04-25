@@ -40,6 +40,10 @@ You would maintain 3 Different Repos to maintain
            * With Kustomize Overlays
      This project repository serves as one tenant on the cluster.
      Who maintains Fleet Repo ==> Developers + SREs.
+     **Setup** : Create a new repository as **xxxx-deploy** (xxxx= your project/app name), clone it and from the root of the repository path  [download repository run this script](https://raw.githubusercontent.com/lfs269/setup/main/setup_project_repo.sh). Use the following command to do do so, 
+     ```
+       curl -fsSL https://raw.githubusercontent.com/lfs269/setup/main/setup_project_repo.sh | bash -
+     ```
 
   3. Project/App Source Repository
        * Application Source Code
