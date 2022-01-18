@@ -1,8 +1,8 @@
-# FLux Fleet (flux-fleet) Repo 
+# Flux Fleet (flux-fleet) Repository
 
 This repository contains code to setup Flux Deployment to various kubernetes clusters in the organisation. 
 
-This repo is managed by **Site Reliability Engineers**. 
+This repository is managed by **Site Reliability Engineers**. 
 
 Type of code and their respective paths are,
 
@@ -10,78 +10,77 @@ Type of code and their respective paths are,
   * infrastructure/*  : Either plain YAMLs or additinally environment specific kustomize overlays.
   * projects/* : Projects(Tenants) On Boarding Spec 
 
-
 ## Code Organisation Strategy with FluxCD
 
-You would maintain 3 Different Repos to maintain
+You would maintain 3 different repos to maintain,
+
   * Flux Fleet
   * Project Deployment
   * Project/App Source
 
-  1. **Flux Fleet Repository**  to manage organisation wide deployments to Kubernetes  with FluxCD.
-     This repository would contain
-       * Cluster Configurations for all your envvironments e.g. staging, production. You would bootstrap the clusters by pointing to this repo.
-       * Cluster Wide Infrastructure Components
-           e.g. Ingress Controllers, Repository Secrets etc.
-       * Project on boarding configurations aka. tenants spec. This is the spec that would point to a project repo for each tenant, fetch the sync manifests and deploy.
-     You could call it a  **flux-fleet** repository, which is managed typically by the SREs. [Fork this repo](https://github.com/lfs269/flux-fleet) to start seting up  fleet repo.
-     Who maintains Fleet Repo ==> Site Reliability Engineers / Devops/Platform Engineers.
+  1. **Flux Fleet Repository**  to manage organisation wide deployments to Kubernetes with FluxCD. This repository would contain,
+       * Cluster Configurations for all your envvironments e.g. staging, production. You would bootstrap the clusters by pointing to this repository
+       * Cluster Wide Infrastructure Components, e.g. Ingress Controllers, Repository Secrets etc
+       * Project on boarding configurations aka. tenants spec. This is the spec that would point to a project repo for each tenant, fetch the sync manifests and deploy
 
-  2. Project Deployment Repository (Tenant).
+     You could call it the **flux-fleet** repository, which is managed typically by the SREs/DevOps Engineers. [Fork this repo](https://github.com/lfs269/flux-fleet) to start setting up the fleet repository.
+
+  2. Project Deployment Repository (Tenant)
      This repository would contain,
-       * Flux Sync/Deployment Code. For example,
+       * Flux sync/deployment code. For example,
            * GitRepository
            * HelmRepository
            * Kustomization (FluxCD Deployments)
            * HelmRelease
-       * Helm Charts Source Code
-       * YAML Manifests as either
+       * Helm charts source code
+       * YAML manifests as either
            * Plain YAML
            * With Kustomize Overlays
-     This project repository serves as one tenant on the cluster.
-     Who maintains Fleet Repo ==> Developers + SREs.
-     **Setup** : Create a new repository as **xxxx-deploy** (xxxx= your project/app name), clone it and from the root of the repository path  [download repository run this script](https://raw.githubusercontent.com/lfs269/setup/main/setup_project_repo.sh). Use the following command to do do so, 
-     ```
-       curl -fsSL https://raw.githubusercontent.com/lfs269/setup/main/setup_project_repo.sh | bash -
-     ```
+     This project repository serves as one tenant on the cluster, typically managed by Developers + SREs.
+     **Setup** : Create a new repository as **xxxx-deploy** (xxxx=`your_app_name`), clone it and from the root of the repository path [run this script](https://raw.githubusercontent.com/lfs269/setup/main/setup_project_repo.sh). Use the following command to do so, 
+
+
+      ```bash
+      $ curl -fsSL https://raw.githubusercontent.com/lfs269/setup/main/setup_project_repo.sh | bash -
+      ```
 
   3. Project/App Source Repository
-       * Application Source Code
-       * Self Explainatory
-       * Contains Source Code + Dockerfile etc.
-     Who maintains Fleet Repo ==> Developers.
-
+       * Application source code
+       * Contains source code + Dockerfile etc
+       * Maintained by developers
 
 ## On Boarding a Project
 
-  1. SREs Setup Fleet Management of Kubernetes Clusters by
-     Creating  flux-fleet repo with
-       * Cluster Definitions e.g. staging, qa, production
-       * Cluster-wide  Infrastructure Deployment Code
-       * Projects (Tenants) Onboaring Scaffold
-     Bootstrapping Clusters with
-       * Git Source Integration with *flux-fleet* repo (its GitOps you know...)
-       * Flux Controllers
+  1. SREs setup fleet management of Kubernetes clusters by,
+    
+     Creating `flux-fleet` repo with,
+       * Cluster definitions, e.g., `staging`, `QA`, `production`
+       * Cluster-wide infrastructure deployment code
+       * Projects (tenants) onboaring scaffold
+     
+     Bootstrapping clusters with,
+       * Git source integration with *flux-fleet* repository
+       * Flux controllers
        * CRDs
-       * Policies : RBAC, Network Policy etc.
-       * Git Source Repo Interation (its GitOps you know...)
+       * Policies, e.g., `RBAC`, `Network Policy`, etc
+       * Git source repository interation
 
-  2. Developers/SREs create Deplpoyment Repo with
-       * Flux Sync/Deployment Manifests
-       * YAML Deployment + Kustomize Overlays
-       * Helm Charts
+  2. Developers/SREs create deplpoyment repositories with,
+       * Flux sync/deployment manifests
+       * YAML deployment + Kustomize overlays
+       * Helm charts
 
-  3. Project owners raise a On Boarding Request
-       * Provide Project Deployment Repository
+  3. Project owners raise a on boarding request,
+       * Provide project deployment repository
 
-  4. SREs On Board the Project by
-       * Genrating Tenant RBAC
-       * Project On Boarding Manifests
+  4. SREs on board the project by,
+       * Genrating tenant RBAC
+       * Project on boarding manifests
 
-  5. FluxCD Reconciles the Cluster State by
-       * Syncing Project Deployment Code
-       * Genrating Flux Resources for the Project e.g.
-           * GitRepository
+  5. FluxCD reconciles the cluster state by,
+       * Syncing project deployment code
+       * Generating `Flux` resources for the project e.g.,
+           * Git Repository
            * Kustomization
-           * HelmRelease
-       * Running Reconciliation for each of the Flux Resource with actual Kubernetes Cluster.
+           * Helm Release
+       * Running reconciliation for each of the Flux resource with actual Kubernetes cluster
