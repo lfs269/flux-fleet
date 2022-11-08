@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: instavote
+  name: instavote-deploy
   namespace: instavote
 spec:
   interval: 1m0s
