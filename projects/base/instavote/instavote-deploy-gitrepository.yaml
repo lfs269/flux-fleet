@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
-  name: instavote-deploy
+  name: instavote
   namespace: instavote
 spec:
   interval: 1m0s
