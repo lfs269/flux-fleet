@@ -5,7 +5,7 @@ metadata:
   name: instavote-deploy
   namespace: instavote
 spec:
-  interval: 1m0s
+  interval: 1m
   ref:
     branch: main
   secretRef:
