@@ -8,5 +8,4 @@ spec:
   interval: 1m0s
   ref:
     branch: main
-  url: https://github.com/fred-flev/instavote-deploy
-
+  url: https://github.com/fred-lev/instavote-deploy
