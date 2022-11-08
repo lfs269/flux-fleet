@@ -6,4 +6,3 @@ patchesStrategicMerge:
   - flagger.yaml
 
 namespace: flagger-system
-
